@@ -4,9 +4,11 @@
 ## Overview
 The Sentiment Analysis Web Application is a full-stack machine learning project designed to analyze and classify the sentiment of user-provided text inputs. Whether it's product reviews, social media posts, or any form of textual feedback, this application leverages advanced natural language processing (NLP) techniques to determine the emotional tone behind the words.
 
-![image](https://github.com/user-attachments/assets/35f0028d-e748-488b-a7a6-cc730cfbe966)
+![image](https://github.com/user-attachments/assets/786ab4fc-d87d-4070-9b06-a9de2357c3be)
 
-![image](https://github.com/user-attachments/assets/aebbe184-ad90-4b97-b530-e74e64e59522)
+
+
+
 
 
 ## Key Features
