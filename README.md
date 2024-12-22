@@ -4,32 +4,32 @@
 The Sentiment Analysis Web Application is a full-stack machine learning project designed to analyze and classify the sentiment of user-provided text inputs. Whether it's product reviews, social media posts, or any form of textual feedback, this application leverages advanced natural language processing (NLP) techniques to determine the emotional tone behind the words.
 
 ## Key Features
-1)User-Friendly Interface: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view sentiment results in real-time.
+1)User-Friendly Interface: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view real-time sentiment results.
 
-2)Robust Backend API: Powered by Flask, the backend efficiently handles text processing and model inference and serves predictions via RESTful endpoints.
+2)**Robust Backend API**: Powered by Flask, the backend efficiently handles text processing and model inference and serves predictions via RESTful endpoints.
 
-Machine Learning Model: Utilizes a pre-trained Naive Bayes classifier from scikit-learn for accurate sentiment analysis, with models serialized using joblib for seamless loading and deployment.
+3)**Machine Learning Model**: Utilizes a pre-trained Naive Bayes classifier from scikit-learn for accurate sentiment analysis, with models serialized using joblib for seamless loading and deployment.
 
-3)Advanced Text Preprocessing: Implements spaCy for comprehensive text preprocessing, including tokenization, lemmatization, and stop-word removal, enhancing the model's performance and accuracy.
+4)**Advanced Text Preprocessing**: Implements spaCy for comprehensive text preprocessing, including tokenization, lemmatization, and stop-word removal, enhancing the model's performance and accuracy.
 
-4)Cross-Origin Resource Sharing (CORS): Configured to allow secure and controlled communication between the frontend and backend, ensuring smooth data flow and interaction.
+5)**Cross-Origin Resource Sharing (CORS)**: Configured to allow secure and controlled communication between the front and back end, ensuring smooth data flow and interaction.
 
-5) uses joblib so that there is no need to train the data repetitevly.
+6)**JOBLIB**: uses joblib, so there is no need to train the data repetitively.
 
 ## Technologies Used
 Frontend:
 
-React.js
-CSS3
-JavaScript (ES6+)
+React.js,
+ CSS3,
+ JavaScript (ES6+)
 
 Backend:
 
-Flask
-Python 3.x
-scikit-learn
-spaCy
-joblib
+Flask,
+ Python 3.x,
+ scikit-learn,
+ spaCy,
+ joblib,
 
 
 ## Getting Started
@@ -95,7 +95,7 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 ## License
 This project is licensed under the MIT License.
 
-##Acknowledgements
+## Acknowledgements
 Special thanks to the creators and maintainers of React, FastAPI, scikit-learn, spaCy, and Render for providing the tools and platforms that made this project possible.
 
 
