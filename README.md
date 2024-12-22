@@ -4,17 +4,17 @@
 The Sentiment Analysis Web Application is a full-stack machine learning project designed to analyze and classify the sentiment of user-provided text inputs. Whether it's product reviews, social media posts, or any form of textual feedback, this application leverages advanced natural language processing (NLP) techniques to determine the emotional tone behind the words.
 
 ## Key Features
-+<u>**User-Friendly Interface**</u>: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view real-time sentiment results.
++ **User-Friendly Interface**: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view real-time sentiment results.
 
-+**Robust Backend API**: Powered by Flask, the backend efficiently handles text processing and model inference and serves predictions via RESTful endpoints.
++ **Robust Backend API**: Powered by Flask, the backend efficiently handles text processing and model inference and serves predictions via RESTful endpoints.
 
-+**Machine Learning Model**: Utilizes a pre-trained Naive Bayes classifier from scikit-learn for accurate sentiment analysis, with models serialized using joblib for seamless loading and deployment.
++ **Machine Learning Model**: Utilizes a pre-trained Naive Bayes classifier from scikit-learn for accurate sentiment analysis, with models serialized using joblib for seamless loading and deployment.
 
-+**Advanced Text Preprocessing**: Implements spaCy for comprehensive text preprocessing, including tokenization, lemmatization, and stop-word removal, enhancing the model's performance and accuracy.
++ **Advanced Text Preprocessing**: Implements spaCy for comprehensive text preprocessing, including tokenization, lemmatization, and stop-word removal, enhancing the model's performance and accuracy.
 
-+**Cross-Origin Resource Sharing (CORS)**: Configured to allow secure and controlled communication between the front and back end, ensuring smooth data flow and interaction.
++ **Cross-Origin Resource Sharing (CORS)**: Configured to allow secure and controlled communication between the front and back end, ensuring smooth data flow and interaction.
 
-+**JOBLIB**: uses joblib, so there is no need to train the data repetitively.
++ **JOBLIB**: uses joblib, so there is no need to train the data repetitively.
 
 ## Technologies Used
 Frontend:
