@@ -28,19 +28,19 @@ The Sentiment Analysis Web Application is a full-stack machine learning project 
 + **JOBLIB**: uses joblib, so there is no need to train the data repetitively.
 
 ## Technologies Used
-**Frontend**:
+### Frontend:
 
-React.js,
- CSS3,
- JavaScript (ES6+)
++ React.js
++ CSS3
++ JavaScript (ES6+)
 
-**Backend**:
+### Backend:
 
-Flask,
- Python 3.x,
- scikit-learn,
- spaCy
- joblib,
++ Flask
++ Python 3.x
++ scikit-learn
++ spaCy
++ joblib
 
 
 ## Getting Started
