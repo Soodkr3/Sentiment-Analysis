@@ -4,7 +4,7 @@
 The Sentiment Analysis Web Application is a full-stack machine learning project designed to analyze and classify the sentiment of user-provided text inputs. Whether it's product reviews, social media posts, or any form of textual feedback, this application leverages advanced natural language processing (NLP) techniques to determine the emotional tone behind the words.
 
 ## Key Features
-1)User-Friendly Interface: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view real-time sentiment results.
+1)<u>**User-Friendly Interface**</u>: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view real-time sentiment results.
 
 2)**Robust Backend API**: Powered by Flask, the backend efficiently handles text processing and model inference and serves predictions via RESTful endpoints.
 
