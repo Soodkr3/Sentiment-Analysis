@@ -1,9 +1,9 @@
-#Sentiment Analysis Web Application
+# Sentiment Analysis Web Application
 
-##Overview
+## Overview
 The Sentiment Analysis Web Application is a full-stack machine learning project designed to analyze and classify the sentiment of user-provided text inputs. Whether it's product reviews, social media posts, or any form of textual feedback, this application leverages advanced natural language processing (NLP) techniques to determine the emotional tone behind the words.
 
-##Key Features
+## Key Features
 1)User-Friendly Interface: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view sentiment results in real-time.
 
 2)Robust Backend API: Powered by Flask, the backend efficiently handles text processing and model inference and serves predictions via RESTful endpoints.
@@ -16,7 +16,7 @@ Machine Learning Model: Utilizes a pre-trained Naive Bayes classifier from sciki
 
 5) uses joblib so that there is no need to train the data repetitevly.
 
-##Technologies Used
+## Technologies Used
 Frontend:
 
 React.js
@@ -32,7 +32,7 @@ spaCy
 joblib
 
 
-##Getting Started
+## Getting Started
 To set up and run the project locally, follow these steps:
 
 1. Clone the Repository
@@ -89,10 +89,10 @@ npm start
 ```
 The frontend application will open in your default browser at http://localhost:3000.
 
-##Contributing
+## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request for enhancements or bug fixes.
 
-##License
+## License
 This project is licensed under the MIT License.
 
 ##Acknowledgements
