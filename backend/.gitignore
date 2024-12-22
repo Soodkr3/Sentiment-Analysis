@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.log
+*.sqlite3
+
+# spaCy
+en_core_web_sm/
+
+# Other
+.DS_Store
