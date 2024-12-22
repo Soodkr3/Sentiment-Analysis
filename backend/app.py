@@ -1,31 +1,90 @@
-from flask import Flask, request, jsonify
-from train_and_load_model import train_or_load_model
-from flask_cors import CORS
+# backend/app.py
 
-# Initialize Flask app
-app = Flask(__name__)
-CORS(app)
+from fastapi import FastAPI, HTTPException
+import joblib
+import uvicorn
+from pydantic import BaseModel
+import string
+import spacy
+from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
 
-# Load or train model at startup
-model, vectorizer = train_or_load_model()
+# CORS Configuration
+origins = [
+    "https://your-frontend-domain.com",  # Replace with your frontend domain
+    "http://localhost:3000",             # For local development
+]
 
-@app.route("/predict", methods=["POST"])
-def predict():
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allows the specified origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Load spaCy model
+try:
+    nlp = spacy.load("en_core_web_sm", disable=["parser", "ner"])
+    print("spaCy model loaded successfully.")
+except Exception as e:
+    print(f"Error loading spaCy model: {e}")
+    raise e
+
+# Load the pre-trained model and vectorizer once at startup
+try:
+    model = joblib.load("sentiment_nb_model.joblib")
+    vectorizer = joblib.load("sentiment_vectorizer.joblib")
+    print("Model and vectorizer loaded successfully.")
+except Exception as e:
+    print(f"Error loading model: {e}")
+    raise e
+
+class Review(BaseModel):
+    text: str
+
+def preprocess_text(text: str) -> str:
     """
-    Expects JSON in the format: { "text": "I loved this movie!" }
-    Returns: { "sentiment": "pos" } or "neg"
+    Preprocesses the input text by:
+    - Lowercasing
+    - Removing punctuation
+    - Removing stopwords
+    - Lemmatizing
     """
-    data = request.get_json()
-    if not data or "text" not in data:
-        return jsonify({"error": "Missing 'text' in JSON payload."}), 400
-    
-    input_text = data["text"]
-    text_vector = vectorizer.transform([input_text])
-    prediction = model.predict(text_vector)
-    
-    return jsonify({"sentiment": prediction[0]})
+    try:
+        if not isinstance(text, str):
+            return ""
+        
+        # Lowercase the text
+        text = text.lower()
+        
+        # Remove punctuation
+        text = text.translate(str.maketrans('', '', string.punctuation))
+        
+        # Process text with spaCy
+        doc = nlp(text)
+        
+        # Remove stopwords and lemmatize
+        tokens = [token.lemma_ for token in doc if not token.is_stop]
+        
+        # Join tokens back to string
+        preprocessed_text = ' '.join(tokens)
+        
+        return preprocessed_text
+    except Exception as e:
+        print(f"Error in preprocessing text: {e}")
+        return ""
+
+@app.post("/predict")
+def predict_sentiment(review: Review):
+    try:
+        processed_text = preprocess_text(review.text)
+        features = vectorizer.transform([processed_text])
+        prediction = model.predict(features)[0]
+        return {"sentiment": prediction}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    # Run the Flask app
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
