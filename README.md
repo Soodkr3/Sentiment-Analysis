@@ -92,8 +92,9 @@ Install Dependencies:
 
 ```bash
 npm install
-Start the Development Server:
 ```
+
+Start the Development Server:
 
 ```bash
 npm start
