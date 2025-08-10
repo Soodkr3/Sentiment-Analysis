@@ -15,17 +15,23 @@ The Sentiment Analysis Web Application is a full-stack machine learning project 
 
 
 ## Key Features
-+ **User-Friendly Interface**: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view real-time sentiment results.
++ **Advanced Machine Learning**: Enhanced ensemble model combining Naive Bayes, Logistic Regression, and Random Forest for superior accuracy (96.7% cross-validation score)
 
-+ **Robust Backend API**: Powered by Flask, the backend efficiently handles text processing and model inference and serves predictions via RESTful endpoints.
++ **Confidence Scoring**: Every prediction includes confidence levels and probability distributions for both positive and negative sentiments
 
-+ **Machine Learning Model**: Utilizes a pre-trained Naive Bayes classifier from scikit-learn for accurate sentiment analysis, with models serialized using joblib for seamless loading and deployment.
++ **Batch Processing**: Analyze multiple texts simultaneously with comprehensive summary statistics including sentiment distribution and average confidence
 
-+ **Advanced Text Preprocessing**: Implements spaCy for comprehensive text preprocessing, including tokenization, lemmatization, and stop-word removal, enhancing the model's performance and accuracy.
++ **User-Friendly Interface**: Built with React.js, the front offers an intuitive and responsive design, allowing users to input text easily and view real-time sentiment results with enhanced metrics
 
-+ **Cross-Origin Resource Sharing (CORS)**: Configured to allow secure and controlled communication between the front and back end, ensuring smooth data flow and interaction.
++ **Robust Backend API**: Powered by FastAPI, the backend efficiently handles text processing and model inference with multiple endpoints for different use cases
 
-+ **JOBLIB**: uses joblib, so there is no need to train the data repetitively.
++ **Advanced Text Preprocessing**: Implements TF-IDF vectorization with n-grams (1-3) for comprehensive feature extraction, enhancing the model's performance and accuracy
+
++ **Model Comparison**: Compare predictions between advanced ensemble model and legacy model to see accuracy improvements
+
++ **Cross-Origin Resource Sharing (CORS)**: Configured to allow secure and controlled communication between the front and back end, ensuring smooth data flow and interaction
+
++ **Backward Compatibility**: Enhanced models while maintaining full compatibility with existing frontend applications
 
 ## Technologies Used
 ### Frontend:
@@ -36,11 +42,12 @@ The Sentiment Analysis Web Application is a full-stack machine learning project 
 
 ### Backend:
 
-+ Flask
++ FastAPI (upgraded from Flask)
 + Python 3.x
-+ scikit-learn
-+ spaCy
++ scikit-learn (ensemble models: Naive Bayes + Logistic Regression + Random Forest)
++ Advanced TF-IDF vectorization with n-grams
 + joblib
++ Cross-validation and model comparison capabilities
 
 
 ## Getting Started
@@ -72,14 +79,25 @@ Install Dependencies:
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+# Note: spaCy is no longer required for the advanced model
 ```
 Run the Backend Server:
 
 ```bash
+# For enhanced API with all advanced features
+uvicorn enhanced_app:app --reload
+
+# OR for backward compatible API 
 uvicorn app:app --reload
 ```
 The backend API will be accessible at http://localhost:8000.
+
+### New API Endpoints:
++ `POST /predict` - Single prediction with confidence scores
++ `POST /predict/batch` - Batch processing with summary statistics  
++ `GET /model/info` - Model architecture and performance metrics
++ `POST /compare` - Compare advanced vs legacy model predictions
++ `GET /health` - Health check endpoint
 
 3. Setup Frontend
    
