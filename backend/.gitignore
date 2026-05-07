@@ -9,5 +9,10 @@ __pycache__/
 # spaCy
 en_core_web_sm/
 
+# Test / coverage artifacts
+.coverage
+coverage.xml
+htmlcov/
+
 # Other
 .DS_Store
