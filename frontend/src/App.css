@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+/* src/App.css */
+
+/* Set the entire body background to black and text to white */
+body {
+  background-color: #000000; /* Black background */
+  color: #ffffff; /* White text */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Style the Card component */
+.card {
+  background-color: #1e1e1e; /* Dark gray background for the card */
+  color: #ffffff; /* White text inside the card */
+  border: none; /* Remove border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Style the Form Control (textarea) */
+.form-control {
+  background-color: #333333; /* Dark background for textarea */
+  color: #ffffff; /* White text */
+  border: 1px solid #555555; /* Gray border */
+}
+
+.form-control::placeholder {
+  color: #cccccc; /* Light gray placeholder text */
+}
+
+/* Style the Submit Button */
+button.btn-primary {
+  background-color: #007bff; /* Bootstrap primary color */
+  border-color: #007bff;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  border-color: #004085;
+}
+
+/* Style the Alerts */
+.alert {
+  background-color: #2c2c2c; /* Dark background for alerts */
+  color: #ffffff; /* White text */
+  border: none; /* Remove border */
+}
+
+.alert-success {
+  background-color: #28a745; /* Green for positive sentiment */
+  color: #ffffff;
+}
+
+.alert-danger {
+  background-color: #dc3545; /* Red for negative sentiment */
+  color: #ffffff;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
