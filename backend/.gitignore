@@ -11,3 +11,4 @@ en_core_web_sm/
 
 # Other
 .DS_Store
+backend/.coverage
