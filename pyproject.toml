@@ -1,0 +1,17 @@
+[tool.ruff]
+line-length = 120
+# Exclude training scripts (not part of the service) and generated files
+exclude = [
+    "backend/train_and_load_model.py",
+    "backend/advanced_train_model.py",
+    "backend/test_improvements.py",
+]
+
+[tool.ruff.lint]
+select = ["E", "W", "F"]
+# E501: line too long – not enforced (would require broad reformatting)
+# F841: local variable assigned but never used
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

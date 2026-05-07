@@ -51,73 +51,73 @@ The Sentiment Analysis Web Application is a full-stack machine learning project 
 
 
 ## Getting Started
-To set up and run the project locally, follow these steps:
 
-1. Clone the Repository
+### Option A – Docker Compose (recommended)
+
+```bash
+git clone https://github.com/soodkr3/Sentiment-Analysis.git
+cd Sentiment-Analysis
+docker compose up --build
+```
+
+- Backend API: http://localhost:8000
+- Frontend dev server: http://localhost:3000
+
+> **Note:** The frontend Docker image installs dependencies but the full React build
+> requires a `src/` directory restructuring (planned for Stage 2). For full local
+> development use Option B below.
+
+---
+
+### Option B – Local development
+
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/soodkr3/Sentiment-Analysis.git
 cd Sentiment-Analysis
 ```
 
-2. Setup Backend
-
-Navigate to the Backend Directory:
+2. **Backend**
 
 ```bash
 cd backend
-```
-Create and Activate a Virtual Environment:
-
-```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-Install Dependencies:
-
-```bash
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install --upgrade pip
 pip install -r requirements.txt
-# Note: spaCy is no longer required for the advanced model
-```
-Run the Backend Server:
-
-```bash
-# For enhanced API with all advanced features
 uvicorn enhanced_app:app --reload
-
-# OR for backward compatible API 
-uvicorn app:app --reload
 ```
+
 The backend API will be accessible at http://localhost:8000.
 
-### New API Endpoints:
-+ `POST /predict` - Single prediction with confidence scores
-+ `POST /predict/batch` - Batch processing with summary statistics  
-+ `GET /model/info` - Model architecture and performance metrics
-+ `POST /compare` - Compare advanced vs legacy model predictions
-+ `GET /health` - Health check endpoint
-
-3. Setup Frontend
-   
-Navigate to the Frontend Directory:
+3. **Frontend**
 
 ```bash
-cd ../frontend
-```
-Install Dependencies:
-
-```bash
-npm install
-```
-
-Start the Development Server:
-
-```bash
+cd frontend
+npm install --legacy-peer-deps
 npm start
 ```
-The frontend application will open in your default browser at http://localhost:3000.
+
+The frontend opens at http://localhost:3000.
+
+### Running tests
+
+```bash
+cd backend
+pip install -r requirements-dev.txt
+pytest tests/ --cov=enhanced_app --cov-report=term-missing -v
+```
+
+### API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/predict` | Single prediction with confidence scores |
+| `POST` | `/predict/batch` | Batch processing with summary statistics |
+| `GET`  | `/model/info` | Model architecture and performance metrics |
+| `POST` | `/compare` | Compare advanced vs legacy model predictions |
+| `GET`  | `/health` | Health check endpoint |
 
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request for enhancements or bug fixes.
@@ -126,6 +126,6 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 This project is licensed under the MIT License.
 
 ## Acknowledgements
-Special thanks to the creators and maintainers of React, FastAPI, scikit-learn, spaCy, and Render for providing the tools and platforms that made this project possible.
+Special thanks to the creators and maintainers of React, FastAPI, scikit-learn, and Render for providing the tools and platforms that made this project possible.
 
 

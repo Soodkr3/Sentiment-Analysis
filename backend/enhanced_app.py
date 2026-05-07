@@ -72,16 +72,16 @@ def advanced_preprocess_text(text: str) -> str:
     try:
         if not isinstance(text, str):
             return ""
-        
+
         # Convert to lowercase
         text = text.lower()
-        
+
         # Remove punctuation
         text = text.translate(str.maketrans('', '', string.punctuation))
-        
+
         # Remove extra whitespace
         text = ' '.join(text.split())
-        
+
         return text
     except Exception as e:
         logger.error(f"Error in preprocessing text: {e}")
@@ -90,30 +90,30 @@ def advanced_preprocess_text(text: str) -> str:
 def load_models():
     """Load all available models."""
     global advanced_model, advanced_vectorizer, legacy_model, legacy_vectorizer, model_metrics
-    
+
     try:
         # Load advanced model
         if os.path.exists("advanced_sentiment_model.joblib") and os.path.exists("advanced_sentiment_vectorizer.joblib"):
             advanced_model = joblib.load("advanced_sentiment_model.joblib")
             advanced_vectorizer = joblib.load("advanced_sentiment_vectorizer.joblib")
             logger.info("Advanced ensemble model loaded successfully.")
-            
+
             # Load model metrics if available
             if os.path.exists("model_metrics.json"):
                 with open("model_metrics.json", 'r') as f:
                     model_metrics = json.load(f)
         else:
             logger.warning("Advanced model not found, will use legacy model.")
-        
+
         # Load legacy model as backup
         if os.path.exists("sentiment_nb_model.joblib") and os.path.exists("sentiment_vectorizer.joblib"):
             legacy_model = joblib.load("sentiment_nb_model.joblib")
             legacy_vectorizer = joblib.load("sentiment_vectorizer.joblib")
             logger.info("Legacy model loaded successfully.")
-        
+
         if not advanced_model and not legacy_model:
             raise Exception("No models found!")
-            
+
     except Exception as e:
         logger.error(f"Error loading models: {e}")
         raise e
@@ -139,27 +139,27 @@ def predict_sentiment_advanced(text: str) -> dict:
             model_used = "legacy"
         else:
             raise Exception("No model available for prediction")
-        
+
         # Calculate confidence as max probability
         confidence = float(max(probabilities))
-        
+
         # Create probability dictionary
         prob_dict = {
             "negative": float(probabilities[0]) if prediction == 'neg' else float(probabilities[1]),
             "positive": float(probabilities[1]) if prediction == 'pos' else float(probabilities[0])
         }
-        
+
         # Ensure negative comes first in array for consistency
         if model_used == "ensemble":
             prob_dict = {"negative": float(probabilities[0]), "positive": float(probabilities[1])}
-        
+
         return {
             "sentiment": prediction,
             "confidence": confidence,
             "probabilities": prob_dict,
             "model_used": model_used
         }
-        
+
     except Exception as e:
         logger.error(f"Error in sentiment prediction: {e}")
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
@@ -190,7 +190,7 @@ async def predict_sentiment(review: Review):
     """
     try:
         result = predict_sentiment_advanced(review.text)
-        
+
         return SentimentResponse(
             sentiment=result["sentiment"],
             confidence=result["confidence"],
@@ -205,24 +205,27 @@ async def predict_sentiment_batch(reviews: BatchReview):
     Predict sentiment for multiple texts with batch processing.
     """
     try:
+        if not reviews.texts:
+            raise HTTPException(status_code=422, detail="texts list cannot be empty")
+
         results = []
         sentiment_counts = {"pos": 0, "neg": 0}
         total_confidence = 0.0
-        
+
         for text in reviews.texts:
             result = predict_sentiment_advanced(text)
-            
+
             sentiment_response = SentimentResponse(
                 sentiment=result["sentiment"],
                 confidence=result["confidence"],
                 probabilities=result["probabilities"]
             )
             results.append(sentiment_response)
-            
+
             # Update statistics
             sentiment_counts[result["sentiment"]] += 1
             total_confidence += result["confidence"]
-        
+
         # Calculate summary statistics
         total_texts = len(reviews.texts)
         summary = {
@@ -233,12 +236,14 @@ async def predict_sentiment_batch(reviews: BatchReview):
             "negative_percentage": round((sentiment_counts["neg"] / total_texts) * 100, 2),
             "average_confidence": round(total_confidence / total_texts, 4)
         }
-        
+
         return BatchSentimentResponse(
             results=results,
             summary=summary
         )
-        
+
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -255,21 +260,21 @@ async def get_model_info():
             "Ensemble voting (soft voting)",
             "Cross-validation scoring"
         ]
-        
+
         training_accuracy = None
         cv_score = None
-        
+
         if model_metrics:
             training_accuracy = model_metrics.get("accuracy")
             cv_score = model_metrics.get("cv_mean")
-        
+
         return ModelInfo(
             model_type=model_type,
             features=features,
             training_accuracy=training_accuracy,
             cross_validation_score=cv_score
         )
-        
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -280,14 +285,14 @@ async def compare_models(review: Review):
     """
     try:
         results = {}
-        
+
         # Advanced model prediction
         if advanced_model and advanced_vectorizer:
             processed_text = advanced_preprocess_text(review.text)
             features = advanced_vectorizer.transform([processed_text])
             prediction = advanced_model.predict(features)[0]
             probabilities = advanced_model.predict_proba(features)[0]
-            
+
             results["advanced"] = {
                 "sentiment": prediction,
                 "confidence": float(max(probabilities)),
@@ -296,14 +301,14 @@ async def compare_models(review: Review):
                     "positive": float(probabilities[1])
                 }
             }
-        
+
         # Legacy model prediction
         if legacy_model and legacy_vectorizer:
             processed_text = review.text.lower().translate(str.maketrans('', '', string.punctuation))
             features = legacy_vectorizer.transform([processed_text])
             prediction = legacy_model.predict(features)[0]
             probabilities = legacy_model.predict_proba(features)[0]
-            
+
             results["legacy"] = {
                 "sentiment": prediction,
                 "confidence": float(max(probabilities)),
@@ -312,12 +317,12 @@ async def compare_models(review: Review):
                     "positive": float(probabilities[1])
                 }
             }
-        
+
         if not results:
             raise HTTPException(status_code=500, detail="No models available for comparison")
-        
+
         return results
-        
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
