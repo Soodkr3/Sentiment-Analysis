@@ -1,0 +1,51 @@
+{
+  "model": "TF-IDF (1-2 grams) + LogisticRegression",
+  "best_params": {
+    "classifier__C": 4.0
+  },
+  "dataset": {
+    "name": "IMDB 50k movie reviews (Maas et al., 2011)",
+    "source": "https://raw.githubusercontent.com/Ankit152/IMDB-sentiment-analysis/master/IMDB-Dataset.csv",
+    "n_total": 49582,
+    "n_train": 39665,
+    "n_test": 9917
+  },
+  "test_metrics": {
+    "accuracy": 0.9132,
+    "precision": 0.9077,
+    "recall": 0.9206,
+    "f1": 0.9141,
+    "roc_auc": 0.9714,
+    "confusion_matrix": [
+      [
+        4474,
+        466
+      ],
+      [
+        395,
+        4582
+      ]
+    ]
+  },
+  "baseline_naive_bayes": {
+    "accuracy": 0.8865,
+    "precision": 0.8878,
+    "recall": 0.8857,
+    "f1": 0.8867,
+    "roc_auc": 0.9544,
+    "confusion_matrix": [
+      [
+        4383,
+        557
+      ],
+      [
+        569,
+        4408
+      ]
+    ]
+  },
+  "cv_accuracy_mean": 0.9109,
+  "cv_accuracy_std": 0.0013,
+  "trained_at": "2026-06-09T23:40:47.970504+00:00",
+  "sklearn_version": "1.9.0"
+}

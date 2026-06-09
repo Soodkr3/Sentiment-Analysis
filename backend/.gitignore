@@ -6,8 +6,12 @@ __pycache__/
 *.log
 *.sqlite3
 
-# spaCy
-en_core_web_sm/
+# Dataset cache (downloaded by train.py)
+data/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
 
 # Other
 .DS_Store
